@@ -161,6 +161,8 @@
   padding: 8px;
 }
 
+
+
 @media (max-width: 800px) {
   .buy-again-button {
     margin-bottom: 10px;

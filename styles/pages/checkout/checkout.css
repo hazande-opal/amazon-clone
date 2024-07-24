@@ -209,3 +209,19 @@
   margin-top: 11px;
   margin-bottom: 15px;
 }
+
+/* New input and save quantity */
+.update-quantity-box{
+ display: none;
+}
+
+.input-quantity{
+  width: 20px;
+  outline: none;
+  text-align: center;
+}
+
+.save-quantity{
+  color: red;
+  cursor: pointer;
+}

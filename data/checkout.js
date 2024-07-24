@@ -11,7 +11,7 @@ cart.forEach((cartItem) => {
         if(product.id === productId){
             matchingProduct = product;
         }
-    })
+    });
 
     checkoutHTML += ` 
     <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
@@ -31,15 +31,19 @@ cart.forEach((cartItem) => {
         $${convertCentsToDollars(matchingProduct.priceCents)}
         </div>
         <div class="product-quantity">
-        <span>
-        Quantity: <span class="quantity-label">${cartItem.quantity}</span>
-        </span>
-        <span class="update-quantity-link link-primary">
-        Update
-        </span>
-        <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">
-        Delete
-        </span>
+            <span>
+                Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+            </span>
+            <span class="update-quantity-link link-primary js-update-quantity-link" data-product-id="${matchingProduct.id}">
+                Update
+            </span>
+            <span class="update-quantity-box">
+                    <input class="input-quantity" type="text">
+                    <span class="save-quantity">Save</span>
+                  </span>
+            <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">
+            Delete
+            </span>
         </div>
         </div>
 
@@ -89,7 +93,7 @@ cart.forEach((cartItem) => {
         </div>
         </div>
     </div>`;
-})
+});
 
 document.querySelector('.js-order-summary').innerHTML = checkoutHTML;
 
@@ -97,7 +101,7 @@ function checkOutQuantity(){
     let checkOutQuantity = 0;
     cart.forEach((cartItem) => {
         checkOutQuantity += cartItem.quantity;
-    })
+    });
 
     document.querySelector('.js-return-to-home-link').innerHTML = checkOutQuantity + "items";
 }
@@ -110,6 +114,14 @@ document.querySelectorAll('.js-delete-link').forEach((link) => {
         removeFromCart(productId);
         const container = document.querySelector(`.js-cart-item-container-${productId}`);
         container.remove();
-    })
-})
 
+        checkOutQuantity();
+    });
+});
+
+document.querySelectorAll('.js-update-quantity-link').forEach((update) => {
+    update.addEventListener('click', () => {
+        console.log(update.dataset.productId);
+    });
+    
+});
