@@ -211,14 +211,17 @@
 }
 
 /* New input and save quantity */
-.update-quantity-box{
- display: none;
+.update-container{
+  display: none;
 }
+
+
 
 .input-quantity{
   width: 20px;
   outline: none;
   text-align: center;
+  height: 100%;
 }
 
 .save-quantity{
