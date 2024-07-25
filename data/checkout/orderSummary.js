@@ -3,6 +3,7 @@ import { products } from '../products.js';
 import { convertCentsToDollars } from '../utils/money.js';
 import { deliveryOptions, getDeliveryOption } from '../deliveryoptions.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
+import { renderPaymentSummary } from './paymentSummary.js';
 
 // Renders the whole orderSummary page to the DOM
 export function renderOrderSummary(){
@@ -158,7 +159,10 @@ export function renderOrderSummary(){
             const container = document.querySelector(`.js-cart-item-container-${productId}`);
             container.remove();
 
+            renderPaymentSummary();
+
             checkOutQuantity();
+            
         });
     });
 
@@ -170,6 +174,7 @@ export function renderOrderSummary(){
             updateDeliveryoptions(productId, deliveryOptionId);
 
             renderOrderSummary();
+            renderPaymentSummary();
         })
     })
 }
