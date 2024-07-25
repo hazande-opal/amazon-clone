@@ -1,13 +1,19 @@
 import {cart, removeFromCart, updateCartQuantity, saveToStorage, updateDeliveryoptions} from '../cart.js';
 import { products } from '../products.js';
 import { convertCentsToDollars } from '../utils/money.js';
-import { deliveryOptions } from '../deliveryoptions.js';
+import { deliveryOptions, getDeliveryOption } from '../deliveryoptions.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 
+// Renders the whole orderSummary page to the DOM
 export function renderOrderSummary(){
+
+    // Saves the data and displays it in the DOM
     let checkoutHTML = '';
+
     cart.forEach((cartItem) => {
         const productId = cartItem.productId;
+
+        // Uses the id of item in the cart to determine other values of the item such as image, price
         let matchingProduct;
 
         products.forEach((product) => {
@@ -18,13 +24,15 @@ export function renderOrderSummary(){
 
 
         const deliveryOptionId = cartItem.deliveryOptionId;
-        let optionDelivery;
 
-        deliveryOptions.forEach((option) => {
-            if(option.id === deliveryOptionId){
-                optionDelivery = option;
-            }
-        })
+        const optionDelivery = getDeliveryOption(deliveryOptionId)
+        // let optionDelivery;
+
+        // deliveryOptions.forEach((option) => {
+        //     if(option.id === deliveryOptionId){
+        //         optionDelivery = option;
+        //     }
+        // })
         const today = dayjs();
 
         const deliveryDate = today.add(
@@ -79,12 +87,14 @@ export function renderOrderSummary(){
         </div>`;
     });
 
+    // Save the deliveryoptions in js and upload it in the DOM 
     function deliveryOption(matchingProduct, cartItem){
 
         let html = '';
 
         deliveryOptions.forEach((deliveryOption) => {
 
+            // Perform date functions using imported dayjs function from the web
             const today = dayjs();
             const deliveryDate = today.add(
                 deliveryOption.deliveryDays, 'days'
@@ -123,8 +133,10 @@ export function renderOrderSummary(){
         return html;
     }
 
+    // Displays items in the cart to the checkout page using DOM
     document.querySelector('.js-order-summary').innerHTML = checkoutHTML;
 
+    // Updates the qunatity of items in the cart;
     function checkOutQuantity(){
         let checkOutQuantity = 0;
         cart.forEach((cartItem) => {
@@ -136,6 +148,7 @@ export function renderOrderSummary(){
 
     checkOutQuantity();
 
+    // Removes item form the cart and checkout page
     document.querySelectorAll('.js-delete-link').forEach((link) => {
         link.addEventListener('click', () => {
             const productId = link.dataset.productId;
@@ -149,6 +162,7 @@ export function renderOrderSummary(){
         });
     });
 
+    
     document.querySelectorAll('.js-delivery-option').forEach((element) => {
         element.addEventListener('click', () => {
             const {productId, deliveryOptionId} =  element.dataset;
