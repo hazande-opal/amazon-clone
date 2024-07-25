@@ -144,7 +144,17 @@ export function renderOrderSummary(){
             checkOutQuantity += cartItem.quantity;
         });
 
-        document.querySelector('.js-return-to-home-link').innerHTML = checkOutQuantity + "items";
+        const itemLink = document.querySelector('.js-item-link');
+
+        if(checkOutQuantity <= 1 || checkOutQuantity === 0){
+            itemLink.innerText = 'item';
+        }
+        else{
+            itemLink.innerText = 'items';
+        }
+
+
+        document.querySelector('.js-return-to-home-link').innerHTML = `${checkOutQuantity}`;
     }
 
     checkOutQuantity();
