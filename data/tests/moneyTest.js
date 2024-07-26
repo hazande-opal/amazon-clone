@@ -1,4 +1,4 @@
-import convertCentsToDollars from "../data/utils/money.js";
+import convertCentsToDollars from "../utils/money.js";
 
 console.log('converts cents to dollars');
 
