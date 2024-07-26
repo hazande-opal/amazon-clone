@@ -1,7 +1,7 @@
 import { cart } from "../cart.js";
 import { products } from "../products.js";
 import { convertCentsToDollars } from "../utils/money.js";
-import { deliveryOptions, getDeliveryOption } from "../deliveryoptions.js";
+import { getDeliveryOption } from "../deliveryoptions.js";
 
 export function renderPaymentSummary(){
     // steps:
@@ -44,6 +44,7 @@ export function renderPaymentSummary(){
 
     const totalCents = totalBeforeTax + taxCents;
 
+    // Step 2: Generate the HTML
     const paymentSummaryHTML = 
     `
         <div class="payment-summary-title">
@@ -51,7 +52,7 @@ export function renderPaymentSummary(){
         </div>
 
         <div class="payment-summary-row">
-        <div>Items (3):</div>
+        <div>Items (${cartQuantity}):</div>
         <div class="payment-summary-money">$
         ${convertCentsToDollars(productPriceCents)}
         </div>
@@ -90,6 +91,8 @@ export function renderPaymentSummary(){
         </button>
     `;
 
-
     document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
+
+    // Step 3: Make it interactive
+    renderPaymentSummary();
 }
