@@ -94,5 +94,5 @@ export function renderPaymentSummary(){
     document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
 
     // Step 3: Make it interactive
-    renderPaymentSummary();
+    // renderPaymentSummary();
 }
